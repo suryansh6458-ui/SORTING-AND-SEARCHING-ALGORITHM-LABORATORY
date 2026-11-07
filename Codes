@@ -1,0 +1,275 @@
+
+# SORTING AND SEARCHING ALGORITHM LABORATORY
+# Class 11 Computer Science
+# No user-defined functions
+
+numbers = []
+
+print("=" * 48)
+print("       ALGORITHM LABORATORY")
+print("=" * 48)
+
+while True:
+
+    print("\n========== MAIN MENU ==========")
+    print("1. Enter Number List")
+    print("2. Display Number List")
+    print("3. Bubble Sort")
+    print("4. Selection Sort")
+    print("5. Linear Search")
+    print("6. Binary Search")
+    print("7. Statistical Analysis")
+    print("8. Exit")
+
+    choice = input("\nEnter choice: ")
+
+    # ENTER NUMBER LIST
+
+    if choice == "1":
+
+        raw = input(
+            "Enter numbers separated by commas: "
+        )
+
+        try:
+
+            numbers = [
+                int(value.strip())
+                for value in raw.split(",")
+            ]
+
+            if len(numbers) == 0:
+                print("List cannot be empty.")
+
+            else:
+                print("Number list created successfully!")
+
+        except ValueError:
+
+            numbers = []
+
+            print("Invalid input! Enter integers only.")
+
+    # DISPLAY LIST
+
+    elif choice == "2":
+
+        if len(numbers) == 0:
+
+            print("No numbers available.")
+
+        else:
+
+            print("Current List:", numbers)
+
+    # BUBBLE SORT
+
+    elif choice == "3":
+
+        if len(numbers) == 0:
+
+            print("Enter numbers first.")
+
+        else:
+
+            sorted_list = numbers[:]
+
+            for i in range(len(sorted_list)):
+
+                for j in range(
+                    0, len(sorted_list) - i - 1
+                ):
+
+                    if sorted_list[j] > sorted_list[j + 1]:
+
+                        sorted_list[j], sorted_list[j + 1] = (
+                            sorted_list[j + 1],
+                            sorted_list[j]
+                        )
+
+            print("\nBubble Sort Result:")
+            print(sorted_list)
+
+    # SELECTION SORT
+
+    elif choice == "4":
+
+        if len(numbers) == 0:
+
+            print("Enter numbers first.")
+
+        else:
+
+            sorted_list = numbers[:]
+
+            for i in range(len(sorted_list)):
+
+                minimum_index = i
+
+                for j in range(i + 1, len(sorted_list)):
+
+                    if (
+                        sorted_list[j]
+                        < sorted_list[minimum_index]
+                    ):
+
+                        minimum_index = j
+
+                sorted_list[i], sorted_list[minimum_index] = (
+                    sorted_list[minimum_index],
+                    sorted_list[i]
+                )
+
+            print("\nSelection Sort Result:")
+            print(sorted_list)
+
+    # LINEAR SEARCH
+
+    elif choice == "5":
+
+        if len(numbers) == 0:
+
+            print("Enter numbers first.")
+
+        else:
+
+            try:
+
+                target = int(
+                    input("Enter number to search: ")
+                )
+
+                found = False
+
+                for i in range(len(numbers)):
+
+                    if numbers[i] == target:
+
+                        print(
+                            "Number found at index:",
+                            i
+                        )
+
+                        found = True
+
+                if found == False:
+
+                    print("Number not found.")
+
+            except ValueError:
+
+                print("Enter a valid integer.")
+
+    # BINARY SEARCH
+
+    elif choice == "6":
+
+        if len(numbers) == 0:
+
+            print("Enter numbers first.")
+
+        else:
+
+            try:
+
+                target = int(
+                    input("Enter number to search: ")
+                )
+
+                # BINARY SEARCH REQUIRES SORTED DATA
+
+                sorted_list = numbers[:]
+
+                sorted_list.sort()
+
+                low = 0
+                high = len(sorted_list) - 1
+
+                found = False
+
+                while low <= high:
+
+                    mid = (low + high) // 2
+
+                    if sorted_list[mid] == target:
+
+                        found = True
+
+                        print(
+                            "Number found at sorted index:",
+                            mid
+                        )
+
+                        break
+
+                    elif sorted_list[mid] < target:
+
+                        low = mid + 1
+
+                    else:
+
+                        high = mid - 1
+
+                if found == False:
+
+                    print("Number not found.")
+
+                print("Sorted List:", sorted_list)
+
+            except ValueError:
+
+                print("Enter a valid integer.")
+
+    # STATISTICAL ANALYSIS
+
+    elif choice == "7":
+
+        if len(numbers) == 0:
+
+            print("Enter numbers first.")
+
+        else:
+
+            total = sum(numbers)
+            count = len(numbers)
+
+            average = total / count
+
+            maximum = max(numbers)
+            minimum = min(numbers)
+
+            unique_numbers = sorted(set(numbers))
+
+            print("\n========== STATISTICS ==========")
+
+            print("Total Numbers:", count)
+            print("Sum:", total)
+            print("Average:", round(average, 2))
+            print("Maximum:", maximum)
+            print("Minimum:", minimum)
+
+            print("Unique Numbers:", len(unique_numbers))
+
+            if len(unique_numbers) >= 2:
+
+                print(
+                    "Second Largest Distinct Number:",
+                    unique_numbers[-2]
+                )
+
+            else:
+
+                print(
+                    "Second largest distinct number not available."
+                )
+
+    # EXIT
+
+    elif choice == "8":
+
+        print("\nAlgorithm Laboratory Closed.")
+        break
+
+    else:
+
+        print("Invalid choice! Select 1 to 8.")
